@@ -1,9 +1,12 @@
 🧠 Medical Multimodal AI Application
+
 📌 Описание проекта
 Данное приложение представляет собой backend-систему для обработки мультимодальных медицинских данных, реализованную на основе:
 Spring Boot
 Spring AI
 Ollama
+
+
 🎯 Цель проекта
 Построение AI-пайплайна, который:
 принимает MRI-данные (`.nii.gz`);
@@ -13,6 +16,8 @@ Ollama
 выполняет RAG (вопрос-ответ);
 оценивает качество ответов.
 ---
+
+
 🚀 Функциональность
 загрузка MRI-файлов через REST API
 pipeline обработки (workflow)
@@ -22,6 +27,8 @@ pipeline обработки (workflow)
 RAG (вопрос-ответ)
 evaluation (релевантность, точность, релевантность ответа)
 ---
+
+
 🏗 Архитектура
 ```
 MRI (.nii.gz)
@@ -41,6 +48,8 @@ RAG (ChatClient)
 Evaluation
 ```
 ---
+
+
 ⚙️ Технологии
 Java 21
 Spring Boot
@@ -49,18 +58,22 @@ Ollama
 PostgreSQL + pgvector
 Gradle
 ---
+
+
 🚀 Первый запуск проекта
 1. Требования
 Java 21
 Docker
 Ollama
 ---
+
 2. Клонирование
 ```bash
 git clone https://github.com/AlexeyLitovchenko/med_project.git
 cd med_project
 ```
 ---
+
 3. PostgreSQL + pgvector
 ```bash
 docker run -d \
@@ -78,6 +91,7 @@ docker exec -it pgvector-db psql -U med -d medvec
 CREATE EXTENSION IF NOT EXISTS vector;
 ```
 ---
+
 4. Ollama
 ```bash
 ollama serve
@@ -88,6 +102,7 @@ ollama pull qwen2.5:7b
 ollama pull nomic-embed-text
 ```
 ---
+
 5. Конфигурация
 ```yaml
 spring:
@@ -106,6 +121,7 @@ spring:
       base-url: http://localhost:11434
 ```
 ---
+
 6. MRI файлы
 ```
 data/sub-1_T1w.nii.gz
@@ -117,6 +133,7 @@ data/sub-1_FLAIR.nii.gz
 ./gradlew bootRun
 ```
 ---
+
 8. Ingest
 ```bash
 curl -X POST "http://localhost:8080/api/ingest" \
@@ -126,6 +143,7 @@ curl -X POST "http://localhost:8080/api/ingest" \
   -F file=@data/sub-1_T1w.nii.gz
 ```
 ---
+
 9. QA
 ```bash
 curl -X POST "http://localhost:8080/api/qa" \
@@ -133,13 +151,16 @@ curl -X POST "http://localhost:8080/api/qa" \
   -d '{"question":"Какие MRI-данные загружены для пациента sub-1?"}'
 ```
 ---
+
 ⚠️ Ограничения
 MriParser — базовый (placeholder)
 нет полного анализа NIfTI
 мультимодальность частичная
 ---
+
 📌 Статус
 MVP / Prototype
 ---
+
 📌 Примечание
 MRI-файлы не хранятся в репозитории.
