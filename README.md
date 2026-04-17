@@ -246,10 +246,14 @@ Gradle
 ---
 
 4. Ollama
+```
    ollama serve
+```
    В новом терминале:
+```
    ollama pull qwen2.5:7b
    ollama pull nomic-embed-text
+```
 ---
 5. Конфигурация
 ```
