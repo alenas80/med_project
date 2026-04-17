@@ -162,5 +162,8 @@ MriParser — базовый (placeholder)
 MVP / Prototype
 ---
 
-📌 Примечание
-MRI-файлы не хранятся в репозитории.
+📌 Файлы
+
+https://s3.amazonaws.com/openneuro.org/ds000001/sub-10/anat/sub-10_T1w.nii.gz?versionId=pF1l_l_AxVOSzdmTHpQbfdBEiEV63MTt
+
+https://s3.amazonaws.com/openneuro.org/ds000001/sub-10/anat/sub-10_inplaneT2.nii.gz?versionId=5dD7aky7dwByQdK1w84qVXPREU9ll8Gl
