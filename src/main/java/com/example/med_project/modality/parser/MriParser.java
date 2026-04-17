@@ -3,7 +3,7 @@ package com.example.med_project.modality.parser;
 import com.example.med_project.modality.Modality;
 import com.example.med_project.model.IngestContext;
 import com.example.med_project.mri.MriFeatureExtractor;
-import com.example.med_project.util.ImageUtils;
+import com.example.med_project.mri.MriImageConverter;
 import com.example.med_project.util.NiftiUtils;
 import com.example.med_project.util.NiftiUtils.NiftiVolume;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class MriParser implements ModalityParser {
                 float[][] slice = NiftiUtils.extractSlice(volume, z);
 
                 // PNG
-                byte[] png = ImageUtils.floatSliceToPng(slice);
+                byte[] png = MriImageConverter.floatSliceToPng(slice);
 
                 Path dir = Paths.get("slices");
                 Path file_slice = dir.resolve("slice_" + z + ".png");
