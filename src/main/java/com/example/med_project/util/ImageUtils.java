@@ -1,30 +1,46 @@
 package com.example.med_project.util;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
-public final class ImageUtils {
+public class ImageUtils {
 
-    private ImageUtils() {
+    public static byte[] floatSliceToPng(float[][] slice) {
+        int h = slice.length;
+        int w = slice[0].length;
+
+        float min = Float.MAX_VALUE;
+        float max = -Float.MAX_VALUE;
+
+        for (float[] row : slice) {
+            for (float v : row) {
+                min = Math.min(min, v);
+                max = Math.max(max, v);
+            }
+        }
+
+        BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
+
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                float norm = (slice[y][x] - min) / (max - min + 1e-5f);
+                int gray = (int) (norm * 255);
+
+                int rgb = (gray << 16) | (gray << 8) | gray;
+                img.setRGB(x, y, rgb);
+            }
+        }
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(img, "PNG", baos);
+            return baos.toByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static byte[] placeholderPng() {
-        try {
-            BufferedImage image = new BufferedImage(224, 224, BufferedImage.TYPE_BYTE_GRAY);
-            Graphics2D g = image.createGraphics();
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, 224, 224);
-            g.setColor(Color.WHITE);
-            g.drawString("MRI PLACEHOLDER", 40, 112);
-            g.dispose();
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", baos);
-            return baos.toByteArray();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create placeholder PNG", e);
-        }
+        return new byte[0];
     }
 }

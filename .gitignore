@@ -42,3 +42,6 @@ out/
 data/
 *.nii
 *.nii.gz
+
+slices/
+*.png

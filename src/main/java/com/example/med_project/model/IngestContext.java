@@ -13,6 +13,7 @@ public class IngestContext {
     private final MultipartFile file;
     private final Map<String, Object> meta = new HashMap<>();
     private final List<byte[]> imagesPng = new ArrayList<>();
+    private final List<String> textChunks = new ArrayList<>();
 
     private String textMeta = "";
     private float[] embedding;
@@ -41,6 +42,8 @@ public class IngestContext {
     public String textMeta() {
         return textMeta;
     }
+
+    public List<String> textChunks() { return textChunks; }
 
     public void setTextMeta(String textMeta) {
         this.textMeta = textMeta;
